@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =================================================== -->
+<!-- Build script to compile, test             C# driver -->
+<!--                                                     -->
+<!-- The script is configured by 'build.properties' file -->
+<!-- =================================================== -->
+<project name="kv.cs" basedir="." default="compile" 
+    xmlns:dn="antlib:org.apache.ant.dotnet">
+ <include buildfile="build.properties" failonerror="true" />
+ <property name="project.name"        value="${project::get-name()}" />
+ <property name="solution.name"       value="${project.name}.sln" />
+ <property name="project.home"        value="${project::get-base-directory()}" />
+ <property name="project.home.driver" value="${path::combine(project.home,'driver')}" />
+ <property name="project.home.test"   value="${path::combine(project.home,'test')}" />
+ <property name="project.home.build" value="${path::combine(project.home,'build')}" />
+ <property name="nuget.config" value="${path::combine('build','nuget.config')}" />
+ <!-- Directory for generated source from Thrift definition -->
+ <property name="thrift.generated.dir" value="${project.home.driver}/generated" />
+ <property name="thrift.definition" value="${path::combine(project.home.driver, 'ondb.thrift')}" />
+ <property name="proxy.lib.dir" value="${path::combine(project.home.driver, path::combine('lib','java'))}"/>
+ <!-- ============================================================================= -->
+ <!-- ===================== Environment related targets =========================== -->
+ <!-- ============================================================================= -->
+ <target name="show.env">
+     <echo message="Operating System       : ${environment::get-operating-system()}" />
+     <echo message="Platform               : ${platform::get-name()}" />
+     <echo message="User home directory    : ${user.home}" />
+     <echo message="Project home directory : ${project.home}" />
+     <echo message="Buiild tool            : ${msbuild}" />
+     <echo message="Thrift definition      : ${thrift.definition}" />
+     <echo message="Proxy library location : ${proxy.lib.dir}   " />
+     <echo message="Store Installation     : ${kv.install.dir}" />
+ </target>
+ 
+ <target name="verify.env">
+     <if test="${not file::exists(msbuild)}">
+         <fail message="${msbuild} is not found" />
+     </if>
+     <if test="${not file::exists(thrift)}">
+         <fail message="${thrift} is not found" />
+     </if>
+     <if test="${not file::exists(nuget)}">
+         <fail message="${nuget} is not found" />
+     </if>
+     <if test="${not directory::exists(kv.install.dir)}">
+         <fail message="${kv.install.dir} is not found" />
+     </if>
+     <if test="${not directory::exists(proxy.lib.dir)}">
+         <fail message="${proxy.lib.dir} is not found" />
+     </if>
+ </target>
+ 
+ <!-- ============================================================================= -->
+ <!--                        Pre-build  targets    ================================ -->
+ <!-- ============================================================================= -->
+ <target name="prepare">
+     <exec program="${nuget}">
+         <arg value="restore" />
+         <arg value="${solution.name}" />
+         <arg value="-configFile" />
+         <arg value="${path::combine(project.home.build,'nuget.config')}" />
+     </exec>
+ </target>
+ <!-- ============================================================================= -->
+ <!-- ===================== Thrift related targets ================================ -->
+ <!-- ============================================================================= -->
+ <target name="generate.stub">
+     <mkdir dir="${thrift.generated.dir}" />
+     <exec program="${thrift}" 
+       commandline="-r -gen csharp -out ${thrift.generated.dir} ${thrift.definition}">
+     </exec>
+ </target>
+ <!-- ============================================================================= -->
+ <!-- ===================== Compilation related targets =========================== -->
+ <!-- ============================================================================= -->
+ <target name="compile" depends="prepare,generate.stub" description="compiles driver">
+     <exec program="${msbuild}">
+         <arg value="/nologo" />
+         <arg value="/verbosity:quiet" />
+         <arg value="${project.home.driver}/driver.csproj" />
+     </exec>
+     <echo message="Created ${path::combine(path::combine(project.home.driver,'bin'),path::combine('Debug','driver.dll'))}"/>
+ </target>
+ <target name="compile.test" depends="compile" description="compiles tests">
+     <property name="project" value="" />
+     <exec program="${msbuild}">
+         <arg value="/nologo" />
+         <arg value="/verbosity:quiet" />
+        <arg value="${project.home.test}/test.csproj" />
+     </exec>
+ </target>
+ <!-- ============================================================================= -->
+ <!-- ===================== Testing related targets =============================== -->
+ <!-- ============================================================================= -->
+ <target name="run.test" depends="assert-store-running, compile.test" description="runs all or a single test case">
+     <property name="test.dll" value="${path::combine(path::combine(project.home.test,'bin'),path::combine('Debug','test.dll'))}" />
+     <copy file="${path::combine(project.home.test,'driver.conf')}" todir="${project.home}" />
+     <loadfile file="${path::combine(project.home.test,'driver.conf')}" property="driver.conf" />
+     <echo message="Test driver configuration" />
+     <echo message="${driver.conf}" />
+         <exec program="${test.runner}">
+             <arg value="${test.dll}" />
+             <arg value="-work" /> <arg value="${project.home.test}"/>"
+             <arg value="--labels=All" />
+             <arg value="--where" />
+             <arg value="cat != LongRunning and cat != HasSchema and cat != Cloud" />
+         </exec>
+ </target>
+ 
+ 
+ <!-- ============================================================================= -->
+ <!-- ============Start and stop database related targets ========================= -->
+ <!-- ============================================================================= -->
+ 
+ <target name="start.store" description="starts kvlite in localhost with default configuration">
+     <property name="store.dir" value="tmp" />
+     <delete dir="${store.dir}" />
+     <mkdir dir="${store.dir}" />
+     <echo message="Starting kvlite version from ${kv.install.dir}" />
+     <exec program="java" spawn="true">
+         <arg value="-jar" />
+         <arg value="${path::combine(path::combine(kv.install.dir,'lib'), 'kvstore.jar')}" />
+         <arg value="kvlite" />
+         <arg value="-host" />
+         <arg value="localhost" />
+         <arg value="-port" />
+         <arg value="5000" />
+         <arg value="-store" />
+         <arg value="kvstore" />
+         <arg value="-root" />
+         <arg value="${store.dir}" />
+         <arg value="-secure-config" />
+         <arg value="disable" />
+     </exec>
+     <sleep seconds="10" />
+ </target>
+ 
+ 
+  
+ <target name="assert-store-running">
+     <exec program="jps" output="process.out">
+         <arg value="-m" />
+     </exec>
+     <loadfile file="process.out" property="jps.output" />
+     <if test="${not string::contains(jps.output, 'kvlite')}">
+         <fail message="kvlite is not running. Please run start.store target" />
+     </if>
+ </target>
+ 
+ 
+</project>

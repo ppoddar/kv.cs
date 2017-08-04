@@ -1,0 +1,33 @@
+﻿<Properties StartupConfiguration="{27ACAB9D-704C-4FD6-B60E-BFC631B7876E}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="build.properties">
+    <Files>
+      <File FileName="kv.cs.build" Line="161" Column="2" />
+      <File FileName="README.md" Line="1" Column="1" />
+      <File FileName="test/driver.conf" Line="10" Column="1" />
+      <File FileName="build.properties" Line="22" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="kv.cs" expanded="True">
+            <Node name="Solution Items" expanded="True">
+              <Node name="/Users/ppoddar/workspace/kv.cs.github/build.properties" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="kv.cs" expanded="True" selected="True" />
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.test PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+</Properties>

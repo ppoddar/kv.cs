@@ -1,0 +1,70 @@
+﻿<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{27ACAB9D-704C-4FD6-B60E-BFC631B7876E}</ProjectGuid>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>  
+    <OutputType>Library</OutputType>
+    <RootNamespace>oracle.kv.client.test</RootNamespace>
+    <AssemblyName>test</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <ReleaseVersion>0.2</ReleaseVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>5</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>5</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="src\ProxyServiceTest.cs" />
+    <Compile Include="src\ConfigurationTest.cs" />
+    <Compile Include="src\RowTest.cs" />
+    <Compile Include="src\AbstractTest.cs" />
+    <Compile Include="src\BasicDriverTest.cs" />
+    <Compile Include="src\DataLayerTest.cs" />
+    <Compile Include="src\MultiGetDeleteTest.cs" />
+    <Compile Include="src\ExecuteOperationTest.cs" />
+    <Compile Include="src\WriteOperationTest.cs" />
+    <Compile Include="src\QuickTest.cs" />
+    <Compile Include="src\SerdePerfTest.cs" />
+    <Compile Include="src\SchemaTest.cs" />
+    <Compile Include="src\PathTest.cs" />
+    <Compile Include="src\AbstractDatbaseTest.cs" />
+    <Compile Include="src\LoggingTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="resources\schema.json" />
+    <None Include="resources\schema-test.json" />
+    <None Include="resources\test.options" />
+    <None Include="driver.conf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\driver\driver.csproj">
+      <Project>{ce67562e-b6bb-409b-8ab6-dcbb93c770b2}</Project>
+      <Name>driver</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="resources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

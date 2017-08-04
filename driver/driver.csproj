@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CE67562E-B6BB-409B-8AB6-DCBB93C770B2}</ProjectGuid>
+     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>  
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>driver</RootNamespace>
+    <AssemblyName>driver</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <CodePage>65001</CodePage>
+    <ReleaseVersion>0.2</ReleaseVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>1</WarningLevel>
+    <DocumentationFile>bin\Debug\driver.xml</DocumentationFile>
+    <NoWarn>0114,1587,1591</NoWarn>
+    <LangVersion>5</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>5</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Thrift, Version=0.9.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ApacheThrift.0.9.3\lib\Thrift.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="generated\oracle\kv\proxy\gen\ondb.Constants.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\ONDB.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TAuthenticationFailureException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TAuthenticationRequiredException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TCancellationException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TConsistency.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TConsistencyException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TDirection.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TDurability.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TDurabilityException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TExecutionException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TFaultException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TFieldRange.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TGetResult.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TIllegalArgumentException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TInterruptedException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TIteratorResult.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TIteratorTimeoutException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TModuleInfo.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TMultiGetResult.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TOperation.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TOperationType.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TProxyException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TReadOptions.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TReplicaAckPolicy.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TRequestLimitException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TRequestTimeoutException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TResult.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TReturnChoice.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TRow.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TRowAndMetadata.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TSimpleConsistency.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TStatementResult.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TStatementResultV2.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TSyncPolicy.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TTableOpExecutionException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TTimeConsistency.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TTimeoutException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TTimeToLive.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TTimeUnit.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TUnauthorizedException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TUnverifiedConnectionException.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TVerifyError.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TVerifyProperties.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TVerifyResult.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TVersionConsistency.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TWriteOptions.cs" />
+    <Compile Include="generated\oracle\kv\proxy\gen\TWriteResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="src\API.cs" />
+    <Compile Include="src\proxy\ProxyService.cs" />
+    <Compile Include="src\data\IDataSupport.cs" />
+    <Compile Include="src\data\impl\DataObject.cs" />
+    <Compile Include="src\config\Configuration.cs" />
+    <Compile Include="src\result\iterators.cs" />
+    <Compile Include="src\data\impl\Row.cs" />
+    <Compile Include="src\data\impl\Thrifty.cs" />
+    <Compile Include="src\impl\KVDriver.cs" />
+    <Compile Include="src\impl\KVStore.cs" />
+    <Compile Include="src\impl\OperationFactory.cs" />
+    <Compile Include="src\exception\errors.cs" />
+    <Compile Include="src\log\Logging.cs" />
+    <Compile Include="src\data\json\native\NativeParser.cs" />
+    <Compile Include="src\impl\Schema.cs" />
+    <Compile Include="src\data\DataModel.cs" />
+    <Compile Include="src\options\Consistency.cs" />
+    <Compile Include="src\options\Direction.cs" />
+    <Compile Include="src\options\Durability.cs" />
+    <Compile Include="src\options\FetchOptions.cs" />
+    <Compile Include="src\options\FieldRange.cs" />
+    <Compile Include="src\options\MultiRowOptions.cs" />
+    <Compile Include="src\options\ReadOptions.cs" />
+    <Compile Include="src\options\ReplicaAckPolicy.cs" />
+    <Compile Include="src\options\ReturnChoice.cs" />
+    <Compile Include="src\options\SyncPolicy.cs" />
+    <Compile Include="src\options\TableIteratorOptions.cs" />
+    <Compile Include="src\options\TimeToLive.cs" />
+    <Compile Include="src\options\WriteOptions.cs" />
+    <Compile Include="src\result\StatementResult.cs" />
+    <Compile Include="src\util\utils.cs" />
+    <Compile Include="src\proxy\NonmanagedProxyService.cs" />
+    <Compile Include="src\util\LevensthineDistance.cs" />
+    <Compile Include="src\impl\DatabaseUri.cs" />
+    <Compile Include="src\proxy\ProcessLauncher.cs" />
+    <Compile Include="src\data\impl\JSONObject.cs" />
+    <Compile Include="src\proxy\ManagedProxyService.cs" />
+    <Compile Include="src\util\EnumHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="assembly.spec.template" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\data\" />
+    <Folder Include="src\data\impl\" />
+    <Folder Include="src\config\" />
+    <Folder Include="src\exception\" />
+    <Folder Include="src\log\" />
+    <Folder Include="src\data\json\" />
+    <Folder Include="src\util\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
